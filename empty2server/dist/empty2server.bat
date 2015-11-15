@@ -1,0 +1,1 @@
+java -jar empty2server.jar 5676

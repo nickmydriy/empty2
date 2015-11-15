@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/space"
+    android:id="@+id/gameover">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/gtime"
+        android:id="@+id/gover"
+        android:layout_gravity="center_horizontal"
+        android:clickable="false"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:textSize="45sp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="356dp"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/gtime"
+        android:layout_gravity="center_horizontal"
+        android:textSize="30sp"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="356dp"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/dmg"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:textSize="30sp"
+        android:textIsSelectable="true"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="356dp"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/hiscore"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:textSize="30sp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/Continue"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:onClick="onClick"
+        android:textSize="20sp"
+        android:layout_margin="5dp"
+        android:background="#3cff9a00"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

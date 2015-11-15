@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/space"
+    android:id="@+id/mul_settings">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ip_edit"
+        android:hint="@string/hint_ipp"
+        android:textColor="#ffffff"
+        android:background="#320080ff"
+        android:textSize="20sp"
+        android:layout_margin="3dp"
+        android:textColorHint="#97ffffff" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/port_edit"
+        android:hint="@string/hint_port"
+        android:textColor="#ffffff"
+        android:background="#320080ff"
+        android:textSize="20sp"
+        android:layout_margin="3dp"
+        android:textColorHint="#97ffffff"
+        android:inputType="numberSigned" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/id_edit"
+        android:hint="@string/hint_id"
+        android:textColor="#ffffff"
+        android:background="#320080ff"
+        android:textSize="20sp"
+        android:layout_margin="3dp"
+        android:textColorHint="#97ffffff"
+        android:inputType="numberSigned"
+        android:maxLength="3" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start_multiplayer"
+            android:id="@+id/button8"
+            android:onClick="gameStart"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:background="#3cff6e00"
+            android:layout_margin="3dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_games"
+            android:id="@+id/button9"
+            android:layout_weight="1"
+            android:onClick="findGames"
+            android:textColor="#ffffff"
+            android:background="#3cff6e00"
+            android:layout_margin="3dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/games_err"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#ffffff"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_gravity="center_horizontal"
+        android:background="#3200ff3f"
+        android:layout_margin="3dp" />
+
+</LinearLayout>
