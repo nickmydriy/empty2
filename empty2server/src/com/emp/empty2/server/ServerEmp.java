@@ -6,9 +6,6 @@
 package com.emp.empty2.server;
 
 import com.emp.empty2.Basis.NetPac;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -21,37 +18,23 @@ import java.net.SocketException;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Random;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author hp
  */
 public class ServerEmp extends Thread{
-
-    JFrame window;
-    JButton button;
     int port;
-    ServerEmp (String port) {     
-        window = new JFrame("Emp Server");
-        window.setSize(320, 100);
-        window.setLayout(new FlowLayout());
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JLabel text = new JLabel("IP: " + getIpAddress() + ":" + "5676");
-        window.add(text); 
-        window.setVisible(true);
+    ServerEmp (String port) {
         this.port = Integer.parseInt(port);
         this.start();
     }
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
                 new ServerEmp(args[0]);
             }
-        });
+        }).start();
     }
     private static String getIpAddress() {
         String ip = "";
@@ -68,8 +51,6 @@ public class ServerEmp extends Thread{
                 }
             }
         } catch (SocketException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
             ip += "Something Wrong! " + e.toString() + "\n";
         }
 
@@ -85,7 +66,7 @@ public class ServerEmp extends Thread{
             try {
                 server = new ServerSocket(port, 256, InetAddress.getByName("0.0.0.0"));
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Could not create server socket: " + e.toString());
             }
             while (true) {
                 try {
@@ -99,7 +80,6 @@ public class ServerEmp extends Thread{
                     ObjectInputStream in = new ObjectInputStream(conn.getInputStream());
                     byte id = in.readByte();
                     in = null;
-                    System.out.println(id);
                     if (id != -1) {
                         if (games[id] == null) {
                             games[id] = conn;
@@ -108,12 +88,13 @@ public class ServerEmp extends Thread{
                             System.out.println("Player connected. ID: " + ((Byte) id).toString());
                             new Thread(new Runnable() {
                                 public void run() {
-                                    new Game().game(games[id], conn);
+                                    new Game().game(games[id], conn, id);
                                     games[id] = null;
                                 }
                             }).start();
                         }
                     } else {
+                        System.out.println(conn.getInetAddress().toString() + " requests for hosts.");
                         new Thread(new Runnable() {                            
                             public void run() {
                                 searchGames(conn);
@@ -168,21 +149,19 @@ class Game {
     ObjectInputStream in1, in2;
     ObjectOutputStream out1, out2;
     int bx, by;
-    public void game(Socket player1, Socket player2) {        
+    public void game(Socket player1, Socket player2, int id) {        
         try {
-            System.out.println("starting game");
+            System.out.println("Game started. Game id: " + id);
             out1 = new ObjectOutputStream(player1.getOutputStream());
             out2 = new ObjectOutputStream(player2.getOutputStream());
-            System.out.println("outputs opened");
             in1 = new ObjectInputStream(player1.getInputStream());
             in2 = new ObjectInputStream(player2.getInputStream());
-            System.out.println("inputs opened");
             out1.writeChar('s');
             out1.flush();
             out2.writeChar('s');
             out2.flush();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Game id: " + id + " finished because of connection problem.");
         }
         try {
             Thread pl1 = new Thread(new Runnable() {
@@ -201,7 +180,6 @@ class Game {
                             out2.flush();
                         }
                     } catch (Exception e) {
-                        System.out.println("1st Thread ERR: " + e.toString());
                         Thread.currentThread().interrupt();
                     } finally {
                         isRun = false;
@@ -237,7 +215,6 @@ class Game {
                             out1.flush();
                         }
                     } catch (Exception e) {
-                        System.out.println("2nd Thread ERR: " + e.toString());
                         Thread.currentThread().interrupt();
                     } finally {
                         isRun = false;
@@ -273,18 +250,15 @@ class Game {
                 bonus2 = true;
             }
         } catch (Exception e) {
-            System.out.println("Thread over! " + e.toString());
         } finally {
-            System.out.println("FINALLY");
+            System.out.println("Game id: " + id + " finished.");
             try {
                 player1.close();
             } catch (IOException e) {
-                e.printStackTrace();
             }
             try {
                 player2.close();
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }
