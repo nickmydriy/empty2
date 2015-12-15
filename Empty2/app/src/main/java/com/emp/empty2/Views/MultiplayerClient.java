@@ -111,6 +111,7 @@ public class MultiplayerClient extends Thread {
                     try {
                         while (true) {
                             if (multiplayerView.readytoSend) {
+
                                 if (isFire) {
                                     out.writeObject(new NetPac(multiplayerView.ship.ship.x / GlobalValues.scale,
                                             multiplayerView.ship.ship.y / GlobalValues.scale,
@@ -130,6 +131,7 @@ public class MultiplayerClient extends Thread {
                                             false)));
                                 }
                                 out.flush();
+                                sleep(30);
                                 multiplayerView.readytoSend = false;
                             }
                         }
